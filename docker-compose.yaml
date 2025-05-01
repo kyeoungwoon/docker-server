@@ -1,0 +1,33 @@
+services:
+  create-mysql:
+    image: mysql:${MYSQL_VERSION}
+    container_name: ${SQL_CONTAINER_NAME}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "${MYSQL_PORT}:3306"
+    volumes:
+      - ${MYSQL_VOLUME}:/var/lib/mysql
+    networks:
+      - create-network
+
+  create-ssh-server:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: ${SSH_CONTAINER_NAME}
+    ports:
+      - "${SSH_PORT}:22"
+      - "${EXTERNAL_APP_PORT}:${INTERNAL_APP_PORT}"
+    volumes:
+      - ${APP_VOLUME}:/opt/app
+    environment:
+      - TZ=${TIMEZONE}
+    restart: always
+    networks:
+      - create-network
+
+networks:
+  create-network:
+    name: ${NETWORK_NAME}
