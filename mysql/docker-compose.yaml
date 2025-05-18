@@ -1,0 +1,11 @@
+services:
+  create-mysql:
+    image: mysql:${MYSQL_VERSION}
+    container_name: ${SQL_CONTAINER_NAME}
+    environment:
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+    ports:
+      - "${MYSQL_PORT}:3306"
+    #    volumes:
+    #      - ${MYSQL_VOLUME}:/var/lib/mysql
