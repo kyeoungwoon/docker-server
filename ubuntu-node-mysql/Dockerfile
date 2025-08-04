@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y \
     && hash -r \
     && npm install -g npm@latest \
     && npm install -g pm2@latest \
+    && npm install -g pnpm@latest \ 
     && mkdir /var/run/sshd \
     && echo 'root:password' | chpasswd \
     && sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config \
