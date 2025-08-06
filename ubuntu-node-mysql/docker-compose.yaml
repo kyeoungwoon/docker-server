@@ -1,5 +1,6 @@
 services:
   create-mysql:
+    restart: always
     image: mysql:${MYSQL_VERSION}
     container_name: ${SQL_CONTAINER_NAME}
     environment:
@@ -13,6 +14,7 @@ services:
       - create-network
 
   create-ssh-server:
+    restart: always
     build:
       context: .
       dockerfile: Dockerfile
@@ -24,7 +26,6 @@ services:
       - ${APP_VOLUME}:/opt/app
     environment:
       - TZ=${TIMEZONE}
-    restart: always
     networks:
       - create-network
 
